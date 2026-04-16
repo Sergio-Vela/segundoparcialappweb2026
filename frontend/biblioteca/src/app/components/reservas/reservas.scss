@@ -1,0 +1,27 @@
+.titulo {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.estado {
+  font-weight: bold;
+}

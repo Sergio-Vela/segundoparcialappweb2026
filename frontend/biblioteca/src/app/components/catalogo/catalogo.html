@@ -1,0 +1,17 @@
+<h1 class="titulo">Catálogo de Libros</h1>
+
+<div class="grid">
+  <mat-card class="card" *ngFor="let libro of libros">
+    <mat-card-title>{{ libro.titulo }}</mat-card-title>
+    <mat-card-content>
+      <p class="categoria">{{ libro.categoria?.nombre }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary"
+              (click)="reservar(libro.id)">
+        Reservar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

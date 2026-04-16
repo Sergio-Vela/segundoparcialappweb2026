@@ -1,0 +1,27 @@
+<h1 class="titulo">Mis Reservas</h1>
+
+<div class="acciones">
+  <button mat-raised-button color="primary" (click)="cargarReservas()">
+    Actualizar
+  </button>
+</div>
+
+<div class="grid">
+  <mat-card class="card" *ngFor="let r of reservas">
+    <mat-card-title>{{ r.libro?.titulo }}</mat-card-title>
+
+    <mat-card-content>
+      <p class="estado">Estado: {{ r.estado?.nombre }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-button color="warn" (click)="cancelar(r.id)">
+        Cancelar
+      </button>
+
+      <button mat-button color="primary" (click)="devolver(r.id)">
+        Devolver
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
