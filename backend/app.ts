@@ -6,7 +6,8 @@ import { autorRoutes } from "./src/interfaces/routes/autorRoutes";
 import { libroAutorRoutes } from "./src/interfaces/routes/libroAutorRoutes";
 import { usuarioRoutes } from "./src/interfaces/routes/usuarioRoutes";
 import { reservaRoutes } from "./src/interfaces/routes/reservaRoutes";
-import libroRoutes from "./src/interfaces/routes/libroRoutes";
+import { libroRoutes } from "./src/interfaces/routes/libroRoutes";
+import { friendRoutes } from "./src/interfaces/routes/friendRoutes";
 
 export const app = express();
 
@@ -25,7 +26,7 @@ app.use("/api", libroAutorRoutes);
 app.use("/api", libroRoutes);
 app.use("/api", reservaRoutes);
 app.use("/api", usuarioRoutes);
-
+app.use("/api", friendRoutes)
 
 app.get("/health", (req,res) => {
     res.send("todo bien")

@@ -1,42 +1,38 @@
 import { app } from "./app";
 import { initDatabase } from "./src/infrastructure/database/initDatabase";
+import { Server } from "socket.io";
+import { createServer } from "http";
+import { startPgListener } from "./src/infrastructure/database/pgListener";
+
 
 const PORT = 3000;
 
+const httpServer = createServer(app);
 
-process.on('uncaughtException', (error) => {
-    console.error('Uncaught exception:', error);
-    if (error instanceof Error) {
-        console.error(error.stack);
-    } else {
-        console.error('Unknown uncaught exception object:', JSON.stringify(error, null, 2));
+export const io = new Server(httpServer, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
     }
-    process.exit(1);
 });
 
-process.on('unhandledRejection', (reason) => {
-    console.error('Unhandled rejection:', reason);
-    if (reason instanceof Error) {
-        console.error(reason.stack);
-    } else {
-        console.error('Unknown unhandled rejection value:', JSON.stringify(reason, null, 2));
-    }
-    process.exit(1);
+io.on('conection', (socket) => {
+    console.log('Nuevo cliente conectado:', socket.id);
+    socket.on('disconect', () => {
+        console.log('Cliente desconectado', socket.id);
+    });
 });
 
-async function start() {
+async function startServer(){
     try {
         await initDatabase();
-        app.listen(PORT, () =>{
-            console.log(`Server is runing on port ${PORT}`)
+        await startPgListener(io);
+        httpServer.listen(PORT, () =>{
+            console.log(`Servidor escuchando en el puerto ${PORT}`);
         });
     } catch (error) {
-        console.error("Failed to start server:", error);
-        if (error instanceof Error) {
-            console.error(error.stack);
-        }
-        process.exit(1);
+        console.error('Error al iniciar el servidor:', error)
     }
 }
 
-start();
+startServer();

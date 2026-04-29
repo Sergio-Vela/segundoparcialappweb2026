@@ -10,14 +10,14 @@ export const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         port: Number(process.env.DB_PORT),
-        dialect: "mysql",
+        dialect: "postgres",
     }
 );
 
 export const connectDB = async () => {
     try {
         await sequelize.authenticate();
-        console.log("Connection to the database has been established successfuly.");
+        console.log("Connection to the database has been established successfuly :3.");
     } catch (error) {
         console.error("Unable to connect to the database: ", error);
         throw error;

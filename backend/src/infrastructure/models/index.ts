@@ -1,6 +1,7 @@
 import { Autor } from "./autorModel";
 import { Categoria } from "./categoriaModel"
 import { Estado } from "./estadomodel";
+import { Friend } from "./FriendModel";
 import { LibroAutor } from "./libroAutorModel";
 import { Libro } from "./libroModel"
 import { Reserva } from "./reservaModel";
@@ -25,5 +26,5 @@ export const registerModels = () => {
     Estado.hasMany(Reserva, { foreignKey: 'estadoId', as: 'reservas' });
     Reserva.belongsTo(Estado, { foreignKey: 'estadoId', as: 'estado' });
 
-    return {Categoria, Libro, Autor, Reserva, Usuario, Estado}
+    return {Categoria, Libro, Autor, Reserva, Usuario, Estado, Friend, LibroAutor};
 }
