@@ -12,13 +12,13 @@ const httpServer = createServer(app);
 export const io = new Server(httpServer, {
     cors: {
         origin: "*",
-        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     }
 });
 
-io.on('conection', (socket) => {
+io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado:', socket.id);
-    socket.on('disconect', () => {
+    socket.on('disconnect', () => {
         console.log('Cliente desconectado', socket.id);
     });
 });

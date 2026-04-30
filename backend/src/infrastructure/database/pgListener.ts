@@ -22,6 +22,7 @@ export async function startPgListener(io: Server){
         if (msg.channel === 'canal_amigos'){
             const payload = JSON.parse(msg.payload!);
             io.emit('amigo_creado', payload);
+            console.log('Notificación recibida:', payload);
         }
     });
 
