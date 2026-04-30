@@ -1,26 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { SocketService } from '../../services/socket-service';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-friends',
+  standalone: true,
   imports: [MatTableModule, CommonModule],
   templateUrl: './friends.html',
-  styleUrl: './friends.scss',
+  styleUrls: ['./friends.scss'],
 })
 
 
 export class Friends implements OnInit{
-  constructor(private socketService: SocketService){}
+  constructor(
+    private socketService: SocketService,
+    private zone: NgZone
+  ){}
+
+  displayedColumns = ['table','old','new'];
   changes: any[] = [];
+  dataSource = new MatTableDataSource<any>([]);
   
   ngOnInit(){
     this.socketService.listenToUpdateAmigos((data)=>{
-      console.log('Notificacion recibida: ', data);
-      this.changes.unshift(data);
-      this.changes = [...this.changes]
+      this.zone.run(() => {
+        console.log('Notificacion recibida en frontend: ', data);
+        this.changes = [data, ...this.changes];
+        this.dataSource.data = this.changes;
+        console.log('changes length:', this.changes.length);
+      });
     });
   }
 

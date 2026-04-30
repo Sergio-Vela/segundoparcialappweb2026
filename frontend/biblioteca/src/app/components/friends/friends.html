@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="changes">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="table">
     <th mat-header-cell *matHeaderCellDef>Tabla</th>
@@ -19,7 +19,10 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="['table','old','new']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['table','old','new'];"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<pre>{{ changes | json }}</pre>
+
+<div *ngIf="changes.length === 0">
+  <p>No hay cambios recibidos todavía.</p>
+</div>
