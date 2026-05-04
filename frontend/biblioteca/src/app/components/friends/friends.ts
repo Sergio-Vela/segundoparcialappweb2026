@@ -2,12 +2,13 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { SocketService } from '../../services/socket-service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-
+import { FriendChange } from '../../interfaces/friend-change';
+import { MatCard, MatCardHeader, MatCardSubtitle, MatCardTitle, MatCardContent } from "@angular/material/card";
 
 @Component({
   selector: 'app-friends',
   standalone: true,
-  imports: [MatTableModule, CommonModule],
+  imports: [MatTableModule, CommonModule, MatCard, MatCardHeader, MatCardSubtitle, MatCardTitle, MatCardContent],
   templateUrl: './friends.html',
   styleUrls: ['./friends.scss'],
 })
@@ -19,9 +20,9 @@ export class Friends implements OnInit{
     private zone: NgZone
   ){}
 
-  displayedColumns = ['table','old','new'];
-  changes: any[] = [];
-  dataSource = new MatTableDataSource<any>([]);
+  displayedColumns = ['id','new','old','table'];
+  changes: FriendChange[] = [];
+  dataSource = new MatTableDataSource<FriendChange>([]);
   
   ngOnInit(){
     this.socketService.listenToUpdateAmigos((data)=>{

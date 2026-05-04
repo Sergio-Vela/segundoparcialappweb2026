@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { io, Socket } from 'socket.io-client';
+import { io } from 'socket.io-client';
+import { FriendChange } from '../interfaces/friend-change';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,8 @@ export class SocketService {
     this.socket = io('http://localhost:3000');
   }
 
-  listenToUpdateAmigos(callback: (data:any) => void) {
-    this.socket.on('amigo_creado', (payload) => {
+  listenToUpdateAmigos(callback: (data: FriendChange) => void) {
+    this.socket.on('amigo_creado', (payload: FriendChange) => {
       callback(payload);
     });
   }
