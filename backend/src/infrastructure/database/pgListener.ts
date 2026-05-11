@@ -7,7 +7,7 @@ dotenv.config();
 export async function startPgListener(io: Server){
 
     const client = new Client({
-        host: process.env.DB_HOSt,
+        host: process.env.DB_HOST,
         port: parseInt(process.env.DB_PORT!),
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
